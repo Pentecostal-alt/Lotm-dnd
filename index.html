@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111512"><title>The Pentecostal Archives</title>
+<style>
+:root{--bg:#101411;--panel:#191f1a;--panel2:#202820;--line:#394239;--ink:#e8e6d8;--muted:#a5ac9e;--gold:#d5b76a;--red:#c87568;--green:#9cae85;--shadow:0 16px 44px #0005}*{box-sizing:border-box}body{ma[...]
+</style>
+</head>
+<body><main class="wrap">
+<header class="mast"><div><div class="eyebrow">Records of the Fourth Epoch</div><h1>The Pentecostal Archives</h1><div class="subtle">Cordu Campaign Ledger · Restricted folios remain sealed</div></div[...]
+<nav class="tabs" aria-label="Archive sections"><button class="active" data-tab="roster">Party Roster</button><button data-tab="dm">Master Console</button><button data-tab="vaults">Character Vaults</b[...]
+<section id="roster" class="tab section"><div class="topline"><div><h2>Known Company</h2><p class="subtle">Public-facing details only. Sealed truths are not shown here.</p></div></div><div id="rosterG[...]
+<section id="dm" class="tab section hidden"><div id="dmLock" class="panel locked"><div class="eyebrow">Sealed · Game Master Only</div><h2>Master Console</h2><p class="subtle">Enter the console passco[...]
+<section id="vaults" class="tab section hidden"><div id="vaultLock" class="panel locked"><div class="eyebrow">Individual sealed folios</div><h2>Character Vaults</h2><p class="subtle">Choose a characte[...]
+<section id="settings" class="tab section hidden"><div class="panel"><div class="eyebrow">Local archive controls</div><h2>Archive Settings</h2><p class="notice">This is a standalone, browser-only app.[...]
+<footer>THE TAROT CLUB RECORDS · CORDU DOSSIER · FOR THE EYES THAT MAY BEAR IT</footer></main><div id="toast" class="toast hidden"></div>
+<script>
+(()=>{'use strict';
+const seed={dmPin:'pentecost',players:[
+{id:'lumian',name:'Lumian Lee',pathway:'Hunter',apparent:'Sequence 8 · Provoker',condition:'Unconscious',hp:0,maxHp:10,vaultPin:'1904',truth:'True sequence: Sequence 8, Provoker. Keep his stated stat[...]
+{id:'aurore',name:'Aurore',pathway:'Unknown',apparent:'Unconfirmed',condition:'Status unknown',hp:null,maxHp:null,vaultPin:'0813',truth:'Aurore’s status remains uncertain. Keep this uncertainty out [...]
+{id:'companion',name:'Companion',pathway:'Unrecorded',apparent:'Unconfirmed',condition:'Stable',hp:8,maxHp:10,vaultPin:'7724',truth:'Unrecorded true sequence. Update identity and facts when establishe[...]
+],dm:{countdown:'13 days remain until D-Day. Update this countdown as the campaign advances.',loop:'Cordu’s time loop and resets are the concealed truth. Preserve continuity of what characters remem[...]
+const clone=x=>JSON.parse(JSON.stringify(x));let data;try{data=JSON.parse(localStorage.getItem('pentecostalArchive')||'null')}catch{}if(!data||!Array.isArray(data.players)||!data.dm)data=clone(seed);
+const persist=()=>localStorage.setItem('pentecostalArchive',JSON.stringify(data));const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));co[...]
+function toast(s){$('toast').textContent=s;$('toast').classList.remove('hidden');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.add('hidden'),2300)}
+function renderRoster(){$('rosterGrid').innerHTML=data.players.map(p=>{let hp=Number.isFinite(p.hp)&&Number.isFinite(p.maxHp)&&p.maxHp>0,percent=hp?Math.max(0,Math.min(100,p.hp/p.maxHp*100)):0;return [...]
+function area(key,label,value){return `<div class="field"><label>${label}</label><textarea data-key="${key}">${esc(value)}</textarea></div>`}
+function renderDm(){let d=data.dm;$('dmContent').innerHTML=`<div class="panel"><div class="eyebrow">Sealed · GM folio</div><div class="topline"><h2>Cordu Master Console</h2><button id="lockDm">Relock[...]
+function renderVault(p){$('vaultContent').innerHTML=`<div class="panel secret"><div class="eyebrow">Private folio · ${esc(p.name)}</div><div class="topline"><h2>${esc(p.name)}</h2><button id="lockVau[...]
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.tab').forEach(x[...]
+$('dmForm').onsubmit=e=>{e.preventDefault();if($('dmPin').value!==data.dmPin){toast('Passcode not recognized');return}$('dmPin').value='';$('dmLock').classList.add('hidden');$('dmContent').classList.r[...]
+$('vaultForm').onsubmit=e=>{e.preventDefault();let p=data.players.find(x=>x.id===$('characterSelect').value);if(!p||$('vaultPin').value!==p.vaultPin){toast('PIN not recognized');return}$('vaultLock').[...]
+$('saveDmPin').onclick=()=>{let a=$('newDmPin').value,b=$('newDmPin2').value;if(!a||a!==b){toast('Enter matching non-empty passcodes');return}data.dmPin=a;persist();$('newDmPin').value=$('newDmPin2').[...]
+$('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='pentecostal-archives-b[...]
+$('importBtn').onclick=()=>$('importFile').click();$('importFile').onchange=async e=>{try{let x=JSON.parse(await e.target.files[0].text());if(!Array.isArray(x.players)||!x.dm||!x.dmPin)throw Error();d[...]
+$('resetBtn').onclick=()=>{if(confirm('Restore original seeded campaign data? This overwrites all local changes.')){data=clone(seed);persist();renderRoster();toast('Original campaign restored')}};rend[...]
+})();
+</script></body></html>
