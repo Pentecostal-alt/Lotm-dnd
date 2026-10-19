@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#111512" />
+    <title>The Pentecostal Archives | Master Console</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body data-page="console">
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">✦</div>
+          <div>
+            <div class="eyebrow">Records of the Fourth Epoch</div>
+            <h1>The Pentecostal Archives</h1>
+          </div>
+        </div>
+        <nav class="main-nav" aria-label="Primary navigation">
+          <a href="index.html">Landing</a>
+          <a href="roster.html">Roster</a>
+          <a class="active" href="console.html">Console</a>
+          <a href="vaults.html">Vaults</a>
+        </nav>
+      </header>
+
+      <main class="page-content narrow-content">
+        <section class="panel locked-panel" id="consoleLock">
+          <p class="eyebrow accent">Sealed · Game Master Only</p>
+          <h2>Master Console</h2>
+          <p class="muted-text">Enter the console passcode to access the GM ledger and campaign state.</p>
+
+          <form id="dmForm" class="archive-form">
+            <label for="dmPin">Passcode</label>
+            <input id="dmPin" type="password" placeholder="Enter archive passcode" autocomplete="off" />
+            <button type="submit" class="button primary">Unlock</button>
+          </form>
+        </section>
+
+        <section class="panel hidden" id="consoleContent">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">GM folio</p>
+              <h2>Cordu Master Console</h2>
+            </div>
+            <button id="lockConsole" class="button secondary" type="button">Relock</button>
+          </div>
+
+          <div class="dm-layout">
+            <div class="field-group">
+              <label for="countdownInput">Countdown</label>
+              <textarea id="countdownInput" rows="3"></textarea>
+            </div>
+            <div class="field-group">
+              <label for="loopInput">Loop truth</label>
+              <textarea id="loopInput" rows="5"></textarea>
+            </div>
+          </div>
+
+          <div class="console-actions">
+            <button id="saveDmState" class="button primary" type="button">Save GM notes</button>
+            <button id="saveDmPin" class="button secondary" type="button">Set new passcode</button>
+          </div>
+
+          <div class="inline-form hidden" id="pinFormWrap">
+            <input id="newDmPin" type="password" placeholder="New passcode" />
+            <input id="newDmPin2" type="password" placeholder="Repeat passcode" />
+            <button id="confirmDmPin" class="button secondary" type="button">Confirm</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden" aria-live="polite"></div>
+  </body>
+</html>

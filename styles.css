@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#111512" />
+    <title>The Pentecostal Archives | Vaults</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body data-page="vaults">
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">✦</div>
+          <div>
+            <div class="eyebrow">Records of the Fourth Epoch</div>
+            <h1>The Pentecostal Archives</h1>
+          </div>
+        </div>
+        <nav class="main-nav" aria-label="Primary navigation">
+          <a href="index.html">Landing</a>
+          <a href="roster.html">Roster</a>
+          <a href="console.html">Console</a>
+          <a class="active" href="vaults.html">Vaults</a>
+        </nav>
+      </header>
+
+      <main class="page-content narrow-content">
+        <section class="panel locked-panel" id="vaultLock">
+          <p class="eyebrow accent">Individual sealed folios</p>
+          <h2>Character Vaults</h2>
+          <p class="muted-text">Select a character and enter their private PIN to open the sealed folio.</p>
+
+          <form id="vaultForm" class="archive-form">
+            <label for="characterSelect">Select character</label>
+            <select id="characterSelect"></select>
+            <label for="vaultPin">Private PIN</label>
+            <input id="vaultPin" type="password" placeholder="Enter vault PIN" autocomplete="off" />
+            <button type="submit" class="button primary">Open folio</button>
+          </form>
+        </section>
+
+        <section class="panel hidden" id="vaultContent"></section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden" aria-live="polite"></div>
+  </body>
+</html>

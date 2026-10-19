@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#111512" />
+    <title>The Pentecostal Archives | Roster</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body data-page="roster">
+    <div class="page-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark">✦</div>
+          <div>
+            <div class="eyebrow">Records of the Fourth Epoch</div>
+            <h1>The Pentecostal Archives</h1>
+          </div>
+        </div>
+        <nav class="main-nav" aria-label="Primary navigation">
+          <a href="index.html">Landing</a>
+          <a class="active" href="roster.html">Roster</a>
+          <a href="console.html">Console</a>
+          <a href="vaults.html">Vaults</a>
+        </nav>
+      </header>
+
+      <main class="page-content">
+        <section class="panel intro-panel">
+          <div>
+            <p class="eyebrow">Known company</p>
+            <h2>Public-facing details only</h2>
+          </div>
+          <p class="muted-text">Sealed truths remain hidden. These entries reflect the record as it is held in public view.</p>
+        </section>
+
+        <section id="rosterGrid" class="roster-grid" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden" aria-live="polite"></div>
+  </body>
+</html>
